@@ -7,6 +7,10 @@ defmodule QuizGame.Question do
     Enum.at(q.choices, q.answer_idx)
   end
 
+  def is_correct(%__MODULE__{} = q, answer_idx) do
+    answer_idx === q.answer_idx
+  end
+
   def from_row(row) do
     with [id, text, idx | choices] <- row,
         true <- is_binary(idx),

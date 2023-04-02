@@ -3,7 +3,8 @@
 ### Logic
 - [x] Quiz importer
 - [x] Question ( text, choices, answer )
-- [ ] Quiz exporter
+- [x] Quiz exporter
+- [x] Round
 - [ ] Player (Id, Name, Score)
 - [ ] Room (players, presence, joins, driving game)
 - [ ] Game (score, players, player history)
