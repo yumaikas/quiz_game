@@ -5,9 +5,9 @@
 - [x] Question ( text, choices, answer )
 - [x] Quiz exporter
 - [x] Round
-- [ ] Player (Id, Name, Score)
+- [.] Game (score, players, player history)
+- [x] Player (Id, Name, Score)
 - [ ] Room (players, presence, joins, driving game)
-- [ ] Game (score, players, player history)
 
 Supervisors?
 

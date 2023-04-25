@@ -1,0 +1,80 @@
+<h2>
+    Quiz Builder
+</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Edit</th>
+            <th>Remove</th>
+            <th>Choices</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <%= for q <- @quiz.questions do %>
+            <tr>
+                <td><%= q.text %></td>
+                <td>
+                    <div>Edit</div>
+                </td>
+                <td>
+                    <button phx-click="remove-from-quiz" phx-value-id={q.id}>Delete</button>
+                </td>
+                <td>
+
+                    <details>
+                    <summary><%=length(q.choices) %> Choices</summary>
+                    <ul>
+                        <%= for choice <- q.choices do %>
+                            <li><%=choice%></li>
+                        <% end  %>
+                    </ul>
+                    </details>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<form phx-submit="add-question" id="question-form">
+    <h3>New Question</h3>
+    <label>Question Text
+    <input type="text" name="text" id="text" value={@question_text} phx-blur="question-text-blur"/>
+    </label>
+    <%= if Map.has_key?(@errors, :question_text) do %>
+        <div class="invalid-feedback"><%=@errors.question_text %></div>
+    <% end %>
+    <h4>Choices</h4>
+    <%= if Map.has_key?(@errors, :invalid_index) do %>
+        <div class="invalid-feedback"><%=@errors.invalid_index %></div>
+    <% end %>
+    <%= if length(@choices) > 0 do %>
+        <fieldset>
+            <legend>Correct choice?</legend>
+            <%= for {choice, idx} <- Enum.with_index(@choices) do %>
+                <label>
+                    <input type="radio" name="correct_idx" value={idx} />
+                    <button type="button" phx-value-idx={idx} phx-click="remove-choice">
+                        Remove
+                    </button>
+                    <%=choice %>
+                </label>
+            <% end %>
+        </fieldset>
+    <% end %>
+</form>
+
+<form phx-submit="add-choice" id="choice-form">
+    <label>Next choice
+        <input type="text" name="new-choice" id="new-choice"/>
+    </label>
+    <button>Add Choice</button>
+</form>
+
+<input type="submit" form="question-form" value="Add Question" />
+
+<%= if length(@quiz.questions) > 0 do %>
+    <button type="button" phx-click="download-quiz">Download</button>
+<% end %>
